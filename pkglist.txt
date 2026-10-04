@@ -180,6 +180,7 @@ layer-shell-qt
 lazygit
 lib32-gamemode
 lib32-vulkan-intel
+libdwarf
 libinput-tools
 libkscreen
 libksysguard
@@ -327,6 +328,7 @@ tty-clock
 tumbler
 typescript
 union
+unityhub
 unrar
 uv
 valgrind
