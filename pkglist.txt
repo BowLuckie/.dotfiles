@@ -40,11 +40,14 @@ docker-buildx
 dotnet-sdk
 downgrade
 drkonqi
+dune
+earlyoom
 efibootmgr
 endeavour
 epiphany
 evtest
 ex-vi-compat
+exfatprogs
 exo
 eza
 f3
@@ -187,6 +190,7 @@ libksysguard
 libplasma
 libpulse
 libva-intel-driver
+libva-utils
 lightdm
 lightdm-webkit2-greeter
 lightsoff
@@ -196,6 +200,7 @@ lld
 llvm
 loupe
 luarocks
+lunar-client-bin
 malcontent
 mangohud
 manuals
@@ -204,10 +209,12 @@ milou
 mousepad
 mp3tag
 mpv
+musescore
 nano
 nasm
 nautilus
 nautilus-open-any-terminal
+nbtexplorer
 ncmpcpp
 neovide
 neovim
@@ -218,6 +225,7 @@ nmap
 noto-fonts
 npm
 nvidia-prime
+obs-studio
 ocean-sound-theme
 odin
 oh-my-posh-bin
@@ -269,8 +277,11 @@ plasma-workspace-wallpapers
 plasma5support
 plymouth-kcm
 polkit-kde-agent
+power-profiles-daemon
 powerdevil
 print-manager
+prismlauncher
+proton-vpn-gtk-app
 protonup-qt
 python-pip
 qqc2-breeze-style
@@ -333,9 +344,11 @@ unrar
 uv
 valgrind
 vim
+vpl-gpu-rt
 vulkan-intel
 vulkan-nouveau
 vulkan-radeon
+wabt
 wacomtablet
 waybar
 wget

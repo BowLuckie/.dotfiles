@@ -15,6 +15,7 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
 export LIBINPUT_MODEL_NATURAL_SCROLL=1
 export INTEL_XE_IGNORE_EXPERIMENTAL_WARNING=1
+export SYSTEMD_EDITOR=nvim
 export EDITOR="nvim"
 export VISUAL="nvim"
 
@@ -59,6 +60,8 @@ alias mkdir='mkdir -p'
 alias win='cd /mnt/c/Users/'
 alias svim='sudo -E nvim'
 
+alias lunarclient='/usr/bin/lunarclient & tmux new-window -n "btop" btop'
+
 export BROWSER=brave
 export XDG_DEFAULT_BROWSER=brave
 
@@ -91,7 +94,7 @@ eval "$(oh-my-posh init zsh --config ~/.dotfiles/oh-my-posh/gruvbox.json)"
 #   - the correct directories to the PATH
 #   - auto-completion for the opam binary
 # This section can be safely removed at any time if needed.
-[[ ! -r '~/.opam/opam-init/init.zsh' ]] || source '~/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 # END opam configuration
 
 fastfetch_load() {
@@ -119,3 +122,5 @@ fi
 eval "$(zoxide init zsh)"
 
 . "$HOME/.cargo/env"
+
+
