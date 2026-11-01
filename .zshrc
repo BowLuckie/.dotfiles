@@ -1,5 +1,5 @@
-ZSH=/usr/share/oh-my-zsh/
-ZSH_CUSTOM="/usr/share/oh-my-zsh/custom"
+ZSH="$HOME/.oh-my-zsh/"
+ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a89984"
 
 plugins=(
@@ -123,4 +123,4 @@ eval "$(zoxide init zsh)"
 
 . "$HOME/.cargo/env"
 
-
+hash -d hypr=~/.config/hypr/
