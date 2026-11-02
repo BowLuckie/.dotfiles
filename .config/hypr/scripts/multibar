@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+echo "spawning waybars"
+for m in $(hyprctl monitors -j | jq -r '.[].name'); do
+    sed "s/REPLACE_OUTPUT/$m/" \
+        "$HOME/.config/waybar/config.jsonc" \
+        > "/tmp/waybar-$m.jsonc"
+
+    waybar -c "/tmp/waybar-$m.jsonc" &
+    echo "spawned waybar $m"
+done
+
+sleep 1
+"$HOME/.config/hypr/scripts/waybar_auto_hide"
+echo "Auto hide active"

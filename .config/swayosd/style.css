@@ -1,0 +1,46 @@
+window#osd {
+  background-color: rgba(40, 40, 40, 0.92);
+  border: 1px solid rgba(254, 128, 25, 0.45);
+  border-radius: 999px;
+  padding: 0px;
+  transition: all 400ms ease-in-out;
+}
+
+#container {
+  margin: 8px 20px;
+}
+
+image {
+  color: #d5c4a1;
+  transition: all 400ms ease-in-out;
+}
+
+label {
+  color: #d5c4a1;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 400ms ease-in-out;
+}
+
+progressbar {
+  min-height: 4px;
+  border-radius: 999px;
+}
+
+progressbar trough {
+  background-color: rgba(80, 73, 69, 0.7);
+  border-radius: 999px;
+  min-height: 4px;
+}
+
+progressbar progress {
+  background-color: #d65d0e;
+  border-radius: 999px;
+  min-height: 4px;
+  transition: all 400ms ease-in-out;
+}
+
+progressbar:disabled,
+image:disabled {
+  opacity: 0.35;
+}

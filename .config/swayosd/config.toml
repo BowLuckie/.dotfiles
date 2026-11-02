@@ -1,0 +1,4 @@
+[server]
+style = "/home/bowluckie/.config/swayosd/style.css"
+top_margin = 0.95
+show_percentage = true

@@ -55,11 +55,11 @@
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
-  "clock": {
-    "format": "{:%H:%M}",
-    "format-alt": "{:%m-%d-%Y}",
-    "tooltip": false
-  },
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "format-alt": "{:%a %d %b, %I:%M:%S %p}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
 
   "cpu": {
     "format": " {usage}%",

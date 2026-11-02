@@ -131,3 +131,8 @@ export HYPRLAND_INSTANCE_SIGNATURE=$(
 )
 
 export PATH="$HOME/.local/bin:$PATH"
+
+alias multibar="$HOME/.dotfiles/.config/hypr/scripts/multibar" 
+
+# NichePods
+export TARGET_BT_MAC="20:F4:D4:47:44:84"
