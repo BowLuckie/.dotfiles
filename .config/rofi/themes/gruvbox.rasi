@@ -1,0 +1,53 @@
+* {
+    bg0:      #1D2021F2;   /* bg0_h, hard contrast */
+    bg1:      #282828;     /* bg0 */
+    bg2:      #3C3836;     /* bg1 */
+    bg3:      #FE8019;     /* bright orange, selection */
+    fg0:      #EBDBB2;
+    fg1:      #FBF1C7;
+    fg2:      #D5C4A1;
+    fg3:      #928374;     /* gray, placeholders */
+
+    accent:   #FE8019;
+    urgent:   #FB4934;
+    active:   #B8BB26;
+    border:   #504945;
+}
+
+@import "template/rounded-template.rasi"
+
+* {
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    border:       2px;
+    border-color: @border;
+}
+
+inputbar {
+    background-color: @bg2;
+}
+
+entry {
+    placeholder-color: @fg3;
+}
+
+element normal active {
+    text-color: @active;
+}
+
+element normal urgent {
+    text-color: @urgent;
+}
+
+element selected normal,
+element selected active {
+    background-color: @bg3;
+    text-color:       @bg1;
+}
+
+element selected urgent {
+    background-color: @urgent;
+    text-color:       @bg1;
+}

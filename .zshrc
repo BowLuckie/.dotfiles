@@ -124,3 +124,10 @@ eval "$(zoxide init zsh)"
 . "$HOME/.cargo/env"
 
 hash -d hypr=~/.config/hypr/
+
+export HYPRLAND_INSTANCE_SIGNATURE=$(
+    systemctl --user show-environment |
+    sed -n 's/^HYPRLAND_INSTANCE_SIGNATURE=//p'
+)
+
+export PATH="$HOME/.local/bin:$PATH"

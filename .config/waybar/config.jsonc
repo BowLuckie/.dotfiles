@@ -1,6 +1,10 @@
 {
   "layer": "top",
-  "output": ["HDMI-A-1", "eDP-1"],
+  "position": "bottom",
+  "exclusive": false,
+  "on-sigusr1": "hide", 
+  "on-sigusr2": "show",
+  "output": "REPLACE_OUTPUT",
   "modules-left": ["custom/launcher", "backlight", "wireplumber", "cpu", "mpris"],
   "modules-center": ["hyprland/workspaces", "clock"],
   "modules-right": ["wlr/taskbar", "custom/bluetooth", "network", "memory", "tray", "battery", "custom/updates"],
@@ -82,13 +86,9 @@
   },
   
   "custom/bluetooth": {
-    "format": " {}",
-    "exec": "~/.config/waybar/bluetooth-display.sh",
-    "interval": 10,
-    "on-click": "blueman-manager",
-    "return-type": "plain",
-    "tooltip": false,
-    "max-length": 25
+      "format": "",
+      "tooltip": "Toggle Target Bluetooth",
+      "on-click": "~/.config/waybar/toggle-device.sh"
   },
 
   "mpris": {
@@ -163,6 +163,5 @@
       "firefoxdeveloperedition": "firefox-developer-edition"
     },
     "markup": true,
-    "all-outputs": false
   }
 }
