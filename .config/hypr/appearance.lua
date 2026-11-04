@@ -1,50 +1,58 @@
--- ~/.config/hypr/appearance.lua
--- Borders, gaps, decoration, animations, layouts, misc
+hl.monitor({
+	output = "",
+	mode = "preferred",
+	position = "auto",
+	scale = "auto",
+})
 
 hl.config({
-    general = {
-        gaps_in          = 5,
-        gaps_out         = 5,
+	general = {
+		gaps_in = 5,
+		gaps_out = 5,
 
-        border_size      = 2,
+		border_size = 2,
 
-        col              = {
-            active_border   = { colors = { "#8ec07cee", "#b8bb26ee" }, angle = 45 },
-            inactive_border = "#7c6f64aa",
-        },
+		col = {
+			active_border = { colors = { "#8ec07cee", "#b8bb26ee" }, angle = 45 },
+			inactive_border = "#7c6f64aa",
+		},
 
-        resize_on_border = false,
+		snap = {
+			enabled = true,
+		},
 
-        allow_tearing    = false,
+		resize_on_border = false,
 
-        layout           = "dwindle",
-    },
+		allow_tearing = false,
 
-    decoration = {
-        rounding         = 5,
-        rounding_power   = 2,
+		layout = "dwindle",
+	},
 
-        active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+	decoration = {
+		rounding = 8,
+		rounding_power = 2,
 
-        shadow           = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = 0xee1a1a1a,
-        },
+		active_opacity = 1.0,
+		inactive_opacity = 1.0,
 
-        blur             = {
-            enabled  = true,
-            size     = 3,
-            passes   = 1,
-            vibrancy = 0.1696,
-        },
-    },
+		shadow = {
+			enabled = true,
+			range = 4,
+			render_power = 3,
+			color = "0xee1a1a1a",
+		},
 
-    animations = {
-        enabled = true,
-    },
+		blur = {
+			enabled = true,
+			size = 3,
+			passes = 1,
+			vibrancy = 0.1696,
+		},
+	},
+
+	animations = {
+		enabled = true,
+	},
 })
 
 -- Animation curves
@@ -76,33 +84,33 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 -- Layouts
 hl.config({
-    dwindle = {
-        preserve_split = true,
-    },
+	dwindle = {
+		preserve_split = true,
+	},
 })
 
 hl.config({
-    master = {
-        new_status = "master",
-    },
+	master = {
+		new_status = "master",
+	},
 })
 
 hl.config({
-    scrolling = {
-        fullscreen_on_one_column = true,
-    },
+	scrolling = {
+		fullscreen_on_one_column = true,
+	},
 })
 
 -- Misc
 hl.config({
-    misc = {
-        force_default_wallpaper = 0,
-        disable_hyprland_logo   = true,
-    },
+	misc = {
+		force_default_wallpaper = 0,
+		disable_hyprland_logo = true,
+	},
 })
 
 hl.config({
-    layers = {
-        allow_new_top_layers_over_existing_fullscreen = true,
-    },
+	layers = {
+		allow_new_top_layers_over_existing_fullscreen = true,
+	},
 })

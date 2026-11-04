@@ -1,0 +1,5 @@
+[delta]
+    syntax-theme = gruvbox-dark
+    line-numbers = true
+    minus-style = syntax "#3c1f1e"
+    plus-style = syntax "#32361a"

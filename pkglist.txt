@@ -71,6 +71,7 @@ hyprpaper
 intel-ucode
 iw
 iwd
+jack-example-tools
 jq
 just
 kitty
@@ -93,10 +94,14 @@ opam
 openssh
 orca
 overskride
+pacman-contrib
 papers
 papirus-icon-theme
 paru
 piper
+pipewire-alsa
+pipewire-jack
+prettier
 qt5-wayland
 qt6-wayland
 ripgrep
@@ -111,6 +116,7 @@ snapshot
 socat
 steam
 steamdepotdownloader
+stylua
 sudo
 sushi
 swayosd

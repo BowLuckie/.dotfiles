@@ -1,6 +1,3 @@
--- ~/.config/hypr/startup.lua
--- Env vars, autostart, plugin config
-
 hl.on("hyprland.start", function()
     hl.exec_cmd("multibar")
     hl.exec_cmd("hyprpaper")
