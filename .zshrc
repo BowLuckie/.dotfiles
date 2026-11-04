@@ -1,17 +1,20 @@
-ZSH="$HOME/.oh-my-zsh/"
-ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a89984"
+if [[ -z "$WSL_DISTRO_NAME" ]]; then
+    ZSH="$HOME/.oh-my-zsh/"
+    ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#a89984"
 
-plugins=(
-    git
-    sudo
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    zsh-vi-mode
-)
-source $ZSH/oh-my-zsh.sh
+    plugins=(
+        git
+        sudo
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+        zsh-vi-mode
+    )
 
-ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+    source $ZSH/oh-my-zsh.sh
+
+    ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+fi
 
 export LIBINPUT_MODEL_NATURAL_SCROLL=1
 export INTEL_XE_IGNORE_EXPERIMENTAL_WARNING=1
