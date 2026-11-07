@@ -21,6 +21,7 @@ gdm
 gdm-settings
 ghostty
 git
+git-delta
 gnome-backgrounds
 gnome-calculator
 gnome-calendar
@@ -116,6 +117,7 @@ snapshot
 socat
 steam
 steamdepotdownloader
+strace
 stylua
 sudo
 sushi

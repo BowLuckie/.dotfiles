@@ -1,64 +1,30 @@
 local terminal = require("core.terminal")
 
 vim.keymap.set("c", "<Esc>", function()
-    local cmd = vim.fn.getcmdtype()
-    if cmd == "/" or cmd == "?" then
-        return "<CR>"
-    end
-    return "<Esc>"
+  local cmd = vim.fn.getcmdtype()
+  if cmd == "/" or cmd == "?" then
+    return "<CR>"
+  end
+  return "<Esc>"
 end, { expr = true })
 
 vim.keymap.set("n", "<F5>", "<cmd>DapContinue<cr>", { desc = "Debug: Continue" })
 
 vim.keymap.set("i", "<A-h>", "<Left>", { desc = "Move left" })
 vim.keymap.set("n", "<leader>gg", function()
-    local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-    if vim.v.shell_error == 0 then
-        vim.cmd("lcd " .. root)
-    end
-    Snacks.lazygit()
+  local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  if vim.v.shell_error == 0 then
+    vim.cmd("lcd " .. root)
+  end
+  Snacks.lazygit()
 end, { desc = "Lazygit (root)" })
 
-vim.keymap.set("n", "<A-J>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
-vim.keymap.set("n", "<A-K>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+vim.keymap.set("n", "<A-J>", "<cmd>m .+1<cr>", { desc = "Move line down" })
 
-vim.keymap.set({ "n" }, "<leader>z", "<cmd>wa!<cr>", { desc = "Save" })
-
-
-local prev_win
-
-local function toggle_terminal_focus()
-    if vim.bo.buftype == "terminal" then
-        vim.cmd("stopinsert")
-        if prev_win and vim.api.nvim_win_is_valid(prev_win) then
-            vim.api.nvim_set_current_win(prev_win)
-        end
-    else
-        prev_win = vim.api.nvim_get_current_win()
-        terminal.get_or_create_terminal()
-        vim.cmd("startinsert")
-    end
-end
-
-vim.keymap.set({ "n", "t" }, "<C-_>", toggle_terminal_focus, { desc = "Toggle terminal focus" })
-
-vim.keymap.set("n", "<leader>'", function()
-    require("core.utils.toggle").surround_quotes()
-end, { desc = "Toggle quotes cur word" })
-
-vim.keymap.set("n", "<leader>t", function()
-    terminal.get_or_create_terminal()
-    vim.cmd("startinsert")
-end, { desc = "Toggle Terminal Buffer" })
-
--- better up/down
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-
--- Move to window using <leader>w + hjkl
---
 
 vim.keymap.set("n", "<leader>wh", "<C-w>h", { desc = "Go to Left Window", remap = true })
 vim.keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Go to Lower Window", remap = true })
@@ -71,14 +37,30 @@ vim.keymap.set("n", "<C-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Hei
 vim.keymap.set("n", "<C-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 vim.keymap.set("n", "<C-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
--- Resize window using <ctrl> arrow keys
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-
--- Move Lines
 vim.keymap.set("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
+vim.keymap.set("n", "<A-K>", "<cmd>m .-2<cr>", { desc = "Move line up" })
+vim.keymap.set("v", "<A-J>", ":m '>+1<cr>gv", { desc = "Move selection down" })
+vim.keymap.set("v", "<A-K>", ":m '<-2<cr>gv", { desc = "Move selection up" })
+
+vim.keymap.set({ "n" }, "<leader>z", "<cmd>wa!<cr>", { desc = "Save" })
+
+local function toggle_terminal_focus()
+  if vim.bo.buftype == "terminal" then
+    vim.cmd("stopinsert")
+  else
+    terminal.get_or_create_terminal()
+  end
+end
+
+vim.keymap.set({ "n", "t" }, "<C-_>", toggle_terminal_focus, { desc = "Toggle terminal focus" })
+
+vim.keymap.set("n", "<leader>'", function()
+  require("core.utils.toggle").surround_quotes()
+end, { desc = "Toggle quotes cur word" })
+
+vim.keymap.set("n", "<leader>t", function()
+  terminal.get_or_create_terminal()
+end, { desc = "Toggle Terminal Buffer" })
 vim.keymap.set("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
 vim.keymap.set("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
@@ -91,21 +73,21 @@ vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
--- vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 -- Clear search and stop snippet on escape
 vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
-    vim.cmd("noh")
-    return "<esc>"
+  vim.cmd("noh")
+  return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
 -- Clear search, diff update and redraw
 vim.keymap.set(
-    "n",
-    "<leader>ur",
-    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-    { desc = "Redraw / Clear hlsearch / Diff Update" }
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -139,18 +121,18 @@ vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- location list
 vim.keymap.set("n", "<leader>xl", function()
-    local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
-    if not success and err then
-        vim.notify(err, vim.log.levels.ERROR)
-    end
+  local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
 end, { desc = "Location List" })
 
 -- quickfix list
 vim.keymap.set("n", "<leader>xq", function()
-    local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
-    if not success and err then
-        vim.notify(err, vim.log.levels.ERROR)
-    end
+  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
+  if not success and err then
+    vim.notify(err, vim.log.levels.ERROR)
+  end
 end, { desc = "Quickfix List" })
 
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
@@ -158,18 +140,18 @@ vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- formatting
 vim.keymap.set({ "n", "x" }, "<leader>cf", function()
-    vim.lsp.buf.format({ async = true })
+  vim.lsp.buf.format({ async = true })
 end, { desc = "Format" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-    return function()
-        vim.diagnostic.jump({
-            count = (next and 1 or -1) * vim.v.count1,
-            severity = severity and vim.diagnostic.severity[severity] or nil,
-            float = true,
-        })
-    end
+  return function()
+    vim.diagnostic.jump({
+      count = (next and 1 or -1) * vim.v.count1,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
+      float = true,
+    })
+  end
 end
 
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
@@ -187,11 +169,11 @@ Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leade
 Snacks.toggle.diagnostics():map("<leader>ud")
 Snacks.toggle.line_number():map("<leader>ul")
 Snacks.toggle
-    .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
-    :map("<leader>uc")
+  .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" })
+  :map("<leader>uc")
 Snacks.toggle
-    .option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" })
-    :map("<leader>uA")
+  .option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" })
+  :map("<leader>uA")
 Snacks.toggle.treesitter():map("<leader>uT")
 Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
 Snacks.toggle.dim():map("<leader>uD")
@@ -201,7 +183,7 @@ Snacks.toggle.profiler():map("<leader>dpp")
 Snacks.toggle.profiler_highlights():map("<leader>dph")
 
 if vim.lsp.inlay_hint then
-    Snacks.toggle.inlay_hints():map("<leader>uh")
+  Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
 -- quit
@@ -210,8 +192,8 @@ vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 -- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set("n", "<leader>uI", function()
-    vim.treesitter.inspect_tree()
-    vim.api.nvim_input("I")
+  vim.treesitter.inspect_tree()
+  vim.api.nvim_input("I")
 end, { desc = "Inspect Tree" })
 
 -- windows
@@ -236,51 +218,51 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>a", "<cmd>Trouble symbols toggle<cr><C-w>w", { desc = "symbols right" })
 
 vim.keymap.set("n", "<leader>R", function()
-    local files = {}
-    local dir = vim.fn.getcwd()
-    local scan = vim.uv.fs_scandir(dir)
-    if scan then
-        while true do
-            local name, typ = vim.uv.fs_scandir_next(scan)
-            if not name then
-                break
-            end
-            if typ == "file" then
-                files[#files + 1] = name
-            end
-        end
+  local files = {}
+  local dir = vim.fn.getcwd()
+  local scan = vim.uv.fs_scandir(dir)
+  if scan then
+    while true do
+      local name, typ = vim.uv.fs_scandir_next(scan)
+      if not name then
+        break
+      end
+      if typ == "file" then
+        files[#files + 1] = name
+      end
     end
-    if #files > 0 then
-        vim.cmd("edit " .. files[math.random(#files)])
-    end
+  end
+  if #files > 0 then
+    vim.cmd("edit " .. files[math.random(#files)])
+  end
 end, { desc = "Open random file" })
 
 vim.keymap.set("n", "<leader>T", function()
-    vim.cmd("term")
+  vim.cmd("term")
 end, { desc = "New Terminal Buffer" })
 
 vim.keymap.set("n", "<leader>`", function()
-    local terminals = {}
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
-            table.insert(terminals, buf)
-        end
+  local terminals = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+      table.insert(terminals, buf)
     end
+  end
 
-    if #terminals == 0 then
-        vim.notify("No terminal buffers open", vim.log.levels.WARN)
-        return
+  if #terminals == 0 then
+    vim.notify("No terminal buffers open", vim.log.levels.WARN)
+    return
+  end
+
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local cur_idx = 1
+  for i, buf in ipairs(terminals) do
+    if buf == cur_buf then
+      cur_idx = i
+      break
     end
+  end
 
-    local cur_buf = vim.api.nvim_get_current_buf()
-    local cur_idx = 1
-    for i, buf in ipairs(terminals) do
-        if buf == cur_buf then
-            cur_idx = i
-            break
-        end
-    end
-
-    local next_buf = terminals[(cur_idx % #terminals) + 1]
-    vim.api.nvim_set_current_buf(next_buf)
+  local next_buf = terminals[(cur_idx % #terminals) + 1]
+  vim.api.nvim_set_current_buf(next_buf)
 end, { desc = "Cycle Terminal Buffers" })

@@ -54,10 +54,6 @@ alias wqa='exit'
 alias ZZ='exit'
 
 alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
 
 alias mkdir='mkdir -p'
 alias win='cd /mnt/c/Users/'
@@ -139,3 +135,5 @@ alias multibar="$HOME/.dotfiles/.config/hypr/scripts/multibar"
 
 # NichePods
 export TARGET_BT_MAC="20:F4:D4:47:44:84"
+
+alias connect_bt=" ~/.dotfiles/.config/waybar/toggle-device.sh"
