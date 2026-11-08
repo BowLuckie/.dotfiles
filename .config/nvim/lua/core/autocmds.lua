@@ -3,74 +3,96 @@
 --     Snacks.picker.files({ hidden = true, ignored = false })
 --   end,
 -- })
+local auto_save = vim.api.nvim_create_augroup("AutoSave", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+  group = auto_save,
+  desc = "Auto-save on leaving buffer or losing focus",
+  callback = function(args)
+    local buf = args.buf
+    if vim.bo[buf].buftype ~= "" then
+      return
+    end
+    if not vim.bo[buf].modifiable or not vim.bo[buf].modified then
+      return
+    end
+    if vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    vim.api.nvim_buf_call(buf, function()
+      vim.cmd("silent! update")
+    end)
+  end,
+})
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "neo-tree",
-    callback = function()
-        vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
-    end,
+  pattern = "neo-tree",
+  callback = function()
+    vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
+  end,
 })
 
 local aliases = { "CountLines", "CL", "LC" }
 
 for _, name in ipairs(aliases) do
-    vim.api.nvim_create_user_command(name, function(opts)
-        local ext = opts.args
-        local files = vim.fs.find(function(file)
-            return vim.fn.fnamemodify(file, ":e") == ext
-        end, { limit = math.huge, type = "file", path = vim.fn.getcwd() })
-        local total = 0
-        for _, f in ipairs(files) do
-            total = total + #vim.fn.readfile(f)
-        end
-        vim.notify(string.format("*.%s lines: %d (%d files)", ext, total, #files), vim.log.levels.INFO)
-    end, { nargs = 1 })
+  vim.api.nvim_create_user_command(name, function(opts)
+    local ext = opts.args
+    local files = vim.fs.find(function(file)
+      return vim.fn.fnamemodify(file, ":e") == ext
+    end, { limit = math.huge, type = "file", path = vim.fn.getcwd() })
+    local total = 0
+    for _, f in ipairs(files) do
+      total = total + #vim.fn.readfile(f)
+    end
+    vim.notify(string.format("*.%s lines: %d (%d files)", ext, total, #files), vim.log.levels.INFO)
+  end, { nargs = 1 })
 end
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.highlight.on_yank({
-            higroup = "IncSearch",
-            timeout = 200,
-            on_visual = true,
-        })
-    end,
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",
+      timeout = 200,
+      on_visual = true,
+    })
+  end,
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function(args)
-        local buf = args.buf
-        local name = vim.api.nvim_buf_get_name(buf)
-        local real = vim.uv.fs_realpath(name)
+  callback = function(args)
+    local buf = args.buf
+    local name = vim.api.nvim_buf_get_name(buf)
+    local real = vim.uv.fs_realpath(name)
 
-        if real and real ~= name then
-            vim.api.nvim_buf_set_name(buf, real)
-        end
-    end,
+    if real and real ~= name then
+      vim.api.nvim_buf_set_name(buf, real)
+    end
+  end,
 })
 
 vim.api.nvim_create_autocmd("TermOpen", {
-    callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-        vim.opt_local.signcolumn = "no"
-    end,
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = "no"
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "html", "javascript", "css", "json" },
-    callback = function()
-        vim.opt_local.tabstop = 2
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.expandtab = true
-    end,
+  pattern = { "html", "javascript", "css", "json" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
+  end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "html", "javascript", "css", "json" },
-    callback = function()
-        vim.opt_local.tabstop = 2
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.expandtab = true
-    end,
+  pattern = { "html", "javascript", "css", "json" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
+  end,
 })

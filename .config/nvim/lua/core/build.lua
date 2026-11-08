@@ -6,6 +6,7 @@
 ---@field path string
 ---@field tool string
 
+--- Quick build module
 ---@class BuildModule
 local M = {}
 

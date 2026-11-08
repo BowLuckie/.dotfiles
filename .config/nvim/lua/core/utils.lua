@@ -28,6 +28,8 @@ function M.get_main_win()
   return vim.api.nvim_get_current_win()
 end
 
+--- returns the id of the next non-floating window available
+---@return integer window_id
 function M.next_normal_win()
   local cur = vim.api.nvim_get_current_win()
   local wins = vim.tbl_filter(function(w)
@@ -35,7 +37,7 @@ function M.next_normal_win()
   end, vim.api.nvim_tabpage_list_wins(0))
 
   if #wins == 0 then
-    return
+    return 0
   end
 
   local idx
@@ -46,7 +48,21 @@ function M.next_normal_win()
     end
   end
 
-  vim.api.nvim_set_current_win(wins[(idx or 0) % #wins + 1])
+  return wins[(idx or 0) % #wins + 1]
+end
+
+--- creates a function that moves either forward or backward through diagnostics of a specified severity
+---@param next boolean wether to move forward or backward
+---@param severity string? the diagnostic name eg WARN or ERROR
+---@return function jumper function a function that when run will preform the movement
+function M.diagnostic_goto(next, severity)
+  return function()
+    vim.diagnostic.jump({
+      count = (next and 1 or -1) * vim.v.count1,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
+      float = true,
+    })
+  end
 end
 
 return M

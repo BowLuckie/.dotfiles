@@ -51,4 +51,30 @@ function M.toggle_terminal_focus()
   end
 end
 
+--- sets the current buffer to the next lowest buffer id of a terminal buffer
+function M.cycle_terminal_buffer()
+  local terminals = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
+      table.insert(terminals, buf)
+    end
+  end
+
+  if #terminals == 0 then
+    vim.notify("No terminal buffers open", vim.log.levels.WARN)
+    return
+  end
+
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local cur_idx = 1
+  for i, buf in ipairs(terminals) do
+    if buf == cur_buf then
+      cur_idx = i
+      break
+    end
+  end
+
+  vim.api.nvim_set_current_buf(terminals[(cur_idx % #terminals) + 1])
+end
+
 return M

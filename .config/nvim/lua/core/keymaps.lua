@@ -1,4 +1,5 @@
 local terminal = require("core.terminal")
+local utils = require("core.utils")
 
 vim.keymap.set("c", "<Esc>", function()
   local cmd = vim.fn.getcmdtype()
@@ -58,7 +59,6 @@ vim.keymap.set("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 vim.keymap.set("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 vim.keymap.set("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
--- buffers
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
@@ -67,13 +67,11 @@ vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buff
 vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
--- Clear search and stop snippet on escape
 vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
   vim.cmd("noh")
   return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
--- Clear search, diff update and redraw
 vim.keymap.set(
   "n",
   "<leader>ur",
@@ -89,28 +87,13 @@ vim.keymap.set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Pr
 vim.keymap.set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 vim.keymap.set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
--- Add undo break-points
-vim.keymap.set("i", ",", ",<c-g>u")
-vim.keymap.set("i", ".", ".<c-g>u")
-vim.keymap.set("i", ";", ";<c-g>u")
-
--- save file
-vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-
--- keywordprg
-vim.keymap.set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
-
--- better indenting
 vim.keymap.set("x", "<", "<gv")
 vim.keymap.set("x", ">", ">gv")
 
--- lazy
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
--- new file
 vim.keymap.set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
--- location list
 vim.keymap.set("n", "<leader>xl", function()
   local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
   if not success and err then
@@ -118,7 +101,6 @@ vim.keymap.set("n", "<leader>xl", function()
   end
 end, { desc = "Location List" })
 
--- quickfix list
 vim.keymap.set("n", "<leader>xq", function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
   if not success and err then
@@ -129,31 +111,18 @@ end, { desc = "Quickfix List" })
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
--- formatting
 vim.keymap.set({ "n", "x" }, "<leader>cf", function()
   vim.lsp.buf.format({ async = true })
 end, { desc = "Format" })
 
--- diagnostic
-local diagnostic_goto = function(next, severity)
-  return function()
-    vim.diagnostic.jump({
-      count = (next and 1 or -1) * vim.v.count1,
-      severity = severity and vim.diagnostic.severity[severity] or nil,
-      float = true,
-    })
-  end
-end
-
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+vim.keymap.set("n", "]d", utils.diagnostic_goto(true), { desc = "Next Diagnostic" })
+vim.keymap.set("n", "[d", utils.diagnostic_goto(false), { desc = "Prev Diagnostic" })
+vim.keymap.set("n", "]e", utils.diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+vim.keymap.set("n", "[e", utils.diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+vim.keymap.set("n", "]w", utils.diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+vim.keymap.set("n", "[w", utils.diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
--- toggle options
 Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
 Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
@@ -177,25 +146,24 @@ if vim.lsp.inlay_hint then
   Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
--- quit
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
--- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set("n", "<leader>uI", function()
   vim.treesitter.inspect_tree()
   vim.api.nvim_input("I")
 end, { desc = "Inspect Tree" })
 
--- windows
 vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-vim.keymap.set("n", "<leader>ww", require("core.utils").next_normal_win, { desc = "Other Window" })
+vim.keymap.set("n", "<leader>ww", function()
+  vim.api.nvim_set_current_win(utils.next_normal_win())
+end, { desc = "Next normal window" })
+
 Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 Snacks.toggle.zen():map("<leader>uz")
 
--- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 vim.keymap.set("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 vim.keymap.set("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
@@ -232,28 +200,4 @@ vim.keymap.set("n", "<leader>T", function()
   vim.cmd("term")
 end, { desc = "New Terminal Buffer" })
 
-vim.keymap.set("n", "<leader>`", function()
-  local terminals = {}
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buftype == "terminal" then
-      table.insert(terminals, buf)
-    end
-  end
-
-  if #terminals == 0 then
-    vim.notify("No terminal buffers open", vim.log.levels.WARN)
-    return
-  end
-
-  local cur_buf = vim.api.nvim_get_current_buf()
-  local cur_idx = 1
-  for i, buf in ipairs(terminals) do
-    if buf == cur_buf then
-      cur_idx = i
-      break
-    end
-  end
-
-  local next_buf = terminals[(cur_idx % #terminals) + 1]
-  vim.api.nvim_set_current_buf(next_buf)
-end, { desc = "Cycle Terminal Buffers" })
+vim.keymap.set("n", "<leader>`", terminal.cycle_terminal_buffer, { desc = "Cycle Terminal Buffers" })
