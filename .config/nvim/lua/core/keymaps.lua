@@ -31,7 +31,6 @@ vim.keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Go to Lower Window", remap
 vim.keymap.set("n", "<leader>wk", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 vim.keymap.set("n", "<leader>wl", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
--- Resize window using <ctrl> hjkl keys
 vim.keymap.set("n", "<C-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 vim.keymap.set("n", "<C-j>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 vim.keymap.set("n", "<C-k>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
@@ -44,15 +43,7 @@ vim.keymap.set("v", "<A-K>", ":m '<-2<cr>gv", { desc = "Move selection up" })
 
 vim.keymap.set({ "n" }, "<leader>z", "<cmd>wa!<cr>", { desc = "Save" })
 
-local function toggle_terminal_focus()
-  if vim.bo.buftype == "terminal" then
-    vim.cmd("stopinsert")
-  else
-    terminal.get_or_create_terminal()
-  end
-end
-
-vim.keymap.set({ "n", "t" }, "<C-_>", toggle_terminal_focus, { desc = "Toggle terminal focus" })
+vim.keymap.set({ "n", "t" }, "<C-_>", terminal.toggle_terminal_focus, { desc = "Toggle terminal focus" })
 
 vim.keymap.set("n", "<leader>'", function()
   require("core.utils.toggle").surround_quotes()
@@ -200,7 +191,7 @@ end, { desc = "Inspect Tree" })
 vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-vim.keymap.set("n", "<leader>ww", "<C-W>w", { desc = "Other Window" })
+vim.keymap.set("n", "<leader>ww", require("core.utils").next_normal_win, { desc = "Other Window" })
 Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 Snacks.toggle.zen():map("<leader>uz")
 

@@ -61,6 +61,7 @@ return {
             staged = "S",
             untracked = "N",
             modified = "M",
+            deleted = "D",
           },
         },
       },
