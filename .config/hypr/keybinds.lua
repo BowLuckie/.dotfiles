@@ -1,5 +1,5 @@
 local terminal = "ghostty"
-local fileManager = "nautilus"
+local fileManager = "thunar"
 local menu = "rofi -show run -theme ~/.dotfiles/.config/rofi/themes/gruvbox.rasi -show-icons"
 
 local mainMod = "SUPER"

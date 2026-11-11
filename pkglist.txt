@@ -105,6 +105,7 @@ pipewire-jack
 prettier
 qt5-wayland
 qt6-wayland
+ranger
 ripgrep
 rofi
 rust
@@ -123,6 +124,7 @@ sudo
 sushi
 swayosd
 tecla
+thunar
 tmux
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
@@ -137,6 +139,7 @@ xdg-desktop-portal-gnome
 xdg-desktop-portal-hyprland
 yay
 yay-debug
+yazi
 yelp
 zoxide
 zsh
