@@ -1,6 +1,7 @@
 baobab
 base
 base-devel
+bear
 blueman
 bluez-utils
 bolt
@@ -70,15 +71,18 @@ hyprland
 hyprlock
 hyprpaper
 intel-ucode
+inxi
 iw
 iwd
 jack-example-tools
+jdk-openjdk
 jq
 just
 kitty
 lazygit
 lib32-vulkan-radeon
 libinput-tools
+librewolf
 linux
 linux-firmware
 loupe
@@ -91,7 +95,9 @@ networkmanager
 nix
 npm
 nwg-look
+odin
 opam
+opencode
 openssh
 orca
 overskride
@@ -128,6 +134,7 @@ thunar
 tmux
 tree-sitter-cli
 ttf-jetbrains-mono-nerd
+tumbler
 unzip
 usbutils
 vim

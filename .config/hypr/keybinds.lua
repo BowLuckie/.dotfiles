@@ -1,4 +1,5 @@
 local terminal = "ghostty"
+local browser = "librewolf"
 local fileManager = "thunar"
 local menu = "rofi -show run -theme ~/.dotfiles/.config/rofi/themes/gruvbox.rasi -show-icons"
 
@@ -15,6 +16,7 @@ hl.bind("ALT + SHIFT + TAB", function()
 end, { description = "Cycle to previous window" })
 
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(
 	mainMod .. " + M",

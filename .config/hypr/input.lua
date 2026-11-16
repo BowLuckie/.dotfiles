@@ -6,9 +6,12 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
+		accel_profile = "flat",
+		force_no_accel = true,
+
 		follow_mouse = 1,
 
-		scroll_factor = 1,
+		scroll_factor = 1.2,
 		sensitivity = 0,
 		-- accel_profile = "flat",
 

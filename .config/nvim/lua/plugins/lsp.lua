@@ -228,13 +228,28 @@ return {
 
         for _, key in ipairs(keys) do
           local method = capability_for_key[key[1]]
-          if not method or client:supports_method(method) then
-            vim.keymap.set(key.mode or "n", key[1], key[2], {
-              buffer = buf,
-              desc = key.desc,
-              nowait = key.nowait,
-            })
+          local fn = key[2]
+          local rhs = fn
+
+          -- Check support when the key is pressed instead of at attach time.
+          -- Some servers (jdtls, for example) register their capabilities
+          -- dynamically after LspAttach, so gating here would leave the buffer
+          -- without any LSP maps.
+          if method and type(fn) == "function" then
+            rhs = function()
+              if vim.tbl_isempty(vim.lsp.get_clients({ bufnr = 0, method = method })) then
+                vim.notify("No LSP client supports " .. method, vim.log.levels.WARN)
+                return
+              end
+              fn()
+            end
           end
+
+          vim.keymap.set(key.mode or "n", key[1], rhs, {
+            buffer = buf,
+            desc = key.desc,
+            nowait = key.nowait,
+          })
         end
       end,
     })

@@ -7,14 +7,14 @@ hl.monitor({
 
 hl.config({
 	general = {
-		gaps_in = 5,
-		gaps_out = 5,
+		gaps_in = 0,
+		gaps_out = 0,
 
-		border_size = 2,
+		border_size = 1,
 
 		col = {
-			active_border = { colors = { "#8ec07cee", "#b8bb26ee" }, angle = 45 },
-			inactive_border = "#7c6f64aa",
+			active_border = "#7c6f64aa",
+			inactive_border = "#00000000",
 		},
 
 		snap = {
@@ -29,8 +29,8 @@ hl.config({
 	},
 
 	decoration = {
-		rounding = 8,
-		rounding_power = 2,
+		rounding = 0,
+		rounding_power = 1,
 
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,

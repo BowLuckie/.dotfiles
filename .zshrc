@@ -59,8 +59,6 @@ alias mkdir='mkdir -p'
 alias win='cd /mnt/c/Users/'
 alias svim='sudo -E nvim'
 
-alias lunarclient='/usr/bin/lunarclient & tmux new-window -n "btop" btop'
-
 export BROWSER=brave
 export XDG_DEFAULT_BROWSER=brave
 
@@ -136,4 +134,4 @@ alias multibar="$HOME/.dotfiles/.config/hypr/scripts/multibar"
 # NichePods
 export TARGET_BT_MAC="20:F4:D4:47:44:84"
 
-alias connect_bt=" ~/.dotfiles/.config/waybar/toggle-device.sh"
+alias btcon=" ~/.dotfiles/.config/waybar/toggle-device.sh"
