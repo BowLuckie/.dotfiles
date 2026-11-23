@@ -112,7 +112,10 @@ vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 vim.keymap.set({ "n", "x" }, "<leader>cf", function()
-  vim.lsp.buf.format({ async = true })
+  require("conform").format({
+    async = true,
+    lsp_format = "fallback",
+  })
 end, { desc = "Format" })
 
 vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })

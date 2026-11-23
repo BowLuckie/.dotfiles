@@ -19,6 +19,7 @@ return {
         c = { "clang-format" },
         cpp = { "clang-format" },
         cs = { "csharpier" },
+        python = { "ruff_format" },
       },
       format_on_save = {
         timeout_ms = 500,

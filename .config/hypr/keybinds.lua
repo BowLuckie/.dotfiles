@@ -1,5 +1,5 @@
 local terminal = "ghostty"
-local browser = "librewolf"
+local browser = "zen-browser"
 local fileManager = "thunar"
 local menu = "rofi -show run -theme ~/.dotfiles/.config/rofi/themes/gruvbox.rasi -show-icons"
 
@@ -7,13 +7,38 @@ local mainMod = "SUPER"
 
 hl.bind("ALT + SPACE", hl.dsp.exec_cmd("pkill rofi || " .. menu), { description = "toggle rofi" })
 
-hl.bind("ALT + TAB", function()
-	hl.dispatch(hl.dsp.window.cycle_next())
-end, { description = "Cycle to next window" })
+local function cycle_visible(step)
+	local list = {}
+	for _, monitor in ipairs(hl.get_monitors()) do
+		local ws = monitor.active_workspace
+		if ws then
+			for _, w in ipairs(hl.get_windows({ workspace = ws })) do
+				list[#list + 1] = w
+			end
+		end
+	end
+	if #list == 0 then
+		return
+	end
 
+	local current = 0
+	for i, w in ipairs(list) do
+		if w.active then
+			current = i
+			break
+		end
+	end
+
+	local nxt = ((current - 1 + step) % #list) + 1
+	hl.dispatch(hl.dsp.focus({ window = list[nxt] }))
+end
+
+hl.bind("ALT + TAB", function()
+	cycle_visible(1)
+end, { description = "Cycle windows on visible workspaces" })
 hl.bind("ALT + SHIFT + TAB", function()
-	hl.dispatch(hl.dsp.window.cycle_next({ reverse = true }))
-end, { description = "Cycle to previous window" })
+	cycle_visible(-1)
+end, { description = "Cycle windows backward" })
 
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(browser))

@@ -59,6 +59,10 @@ alias mkdir='mkdir -p'
 alias win='cd /mnt/c/Users/'
 alias svim='sudo -E nvim'
 
+alias vim="nvim"
+
+alias zen="zen-browser"
+
 export BROWSER=brave
 export XDG_DEFAULT_BROWSER=brave
 

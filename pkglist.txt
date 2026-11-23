@@ -9,6 +9,7 @@ brave-bin
 btop
 cava
 clang
+cloc
 decibels
 dotnet-sdk
 dune
@@ -16,6 +17,7 @@ efibootmgr
 epiphany
 evtest
 fastfetch
+ffmpeg4.4
 fzf
 gamescope
 gdm
@@ -114,7 +116,9 @@ qt6-wayland
 ranger
 ripgrep
 rofi
+ruff
 rust
+rust-analyzer
 rygel
 shellcheck
 showtime
@@ -125,6 +129,7 @@ socat
 steam
 steamdepotdownloader
 strace
+strawberry
 stylua
 sudo
 sushi
@@ -137,6 +142,7 @@ ttf-jetbrains-mono-nerd
 tumbler
 unzip
 usbutils
+uv
 vim
 vulkan-radeon
 vulkan-tools
@@ -148,5 +154,6 @@ yay
 yay-debug
 yazi
 yelp
+zen-browser-bin
 zoxide
 zsh

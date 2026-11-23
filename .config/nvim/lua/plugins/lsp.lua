@@ -150,15 +150,8 @@ return {
         },
 
         basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                typeCheckingMode = "standard",
-                autoImportCompletions = true,
-                diagnosticMode = "openFilesOnly",
-              },
-            },
-          },
+          cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
+          mason = false,
         },
 
         clangd = {
