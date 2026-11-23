@@ -34,7 +34,7 @@
     "custom/bluetooth": {
         "format": "󰂯",
         "tooltip": "Toggle Target Bluetooth",
-        "on-click": "~/.config/waybar/toggle-device.sh"
+        "on-click": "btcon"
     },
     "mpris": {
         "format": "{player_icon}  {dynamic}",
