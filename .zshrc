@@ -137,5 +137,3 @@ alias multibar="$HOME/.dotfiles/.config/hypr/scripts/multibar"
 
 # NichePods
 export TARGET_BT_MAC="20:F4:D4:47:44:84"
-
-alias btcon=" ~/.dotfiles/.config/waybar/toggle-device.sh"

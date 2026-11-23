@@ -5,7 +5,6 @@ let
   link = path: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${path}";
 in
 {
- # make sure to change these if cloning this config
   home.username = "bowluckie";
   home.homeDirectory = "/home/bowluckie";
   home.stateVersion = "26.05";
